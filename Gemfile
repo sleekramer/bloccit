@@ -11,6 +11,7 @@ end
 
 group :development do
   gem 'sqlite3'
+  gem 'spring-commands-rspec'
 end
 
 group :development, :test do
