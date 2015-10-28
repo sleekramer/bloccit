@@ -6,7 +6,7 @@ RSpec.describe TopicsController, type: :controller do
 
   describe "GET index" do
     it "returns http success" do
-      get :index
+      get :index, id: my_topic
       expect(response).to have_http_status(:success)
     end
     it "assigns my_topic to @topics" do
