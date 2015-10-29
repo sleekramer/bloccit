@@ -7,8 +7,13 @@ RSpec.describe User, type: :model do
   it {should validate_length_of(:name).is_at_least(1)}
 
 # Shoulda tests for email
+
   it {should validate_presence_of(:email)}
-  it {should validate_uniqueness_of(:email)}
+  describe "uniqueness attribute" do
+    subject { User.new(name: "User Name", password: "password")}
+    it {should validate_uniqueness_of(:email)}
+  end
+
   it {should validate_length_of(:email)}
   it {should allow_value("user@bloccit.com").for(:email)}
   it {should_not allow_value("userbloccit.com").for(:email)}
@@ -23,6 +28,11 @@ RSpec.describe User, type: :model do
     end
     it "should respond to email" do
       expect(user).to respond_to(:email)
+    end
+    it "should format user name" do
+      user.name = "user name"
+      user.save
+      expect(user.name).to eq("User Name")
     end
   end
   describe "invalid user" do
