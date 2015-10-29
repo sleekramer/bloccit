@@ -11,7 +11,7 @@ RSpec.describe TopicsController, type: :controller do
     end
     it "assigns my_topic to @topics" do
       get :index
-      expect(assigns(:topics)).to eq(my_topic)
+      expect(assigns(:topics)).to eq([my_topic])
     end
   end
 

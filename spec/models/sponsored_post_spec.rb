@@ -10,13 +10,13 @@ RSpec.describe SponsoredPost, type: :model do
 
   describe "attributes" do
     it "should respond to title" do
-      expect(post).to  respond_to(:title)
+      expect(sponsored_post).to  respond_to(:title)
     end
     it "should respond to body" do
-      expect(post).to respond_to(:body)
+      expect(sponsored_post).to respond_to(:body)
     end
     it "should respond to price" do
-      expect(post).to respond_to(:price)
+      expect(sponsored_post).to respond_to(:price)
     end
   end
 end
