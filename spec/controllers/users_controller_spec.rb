@@ -20,6 +20,7 @@ RSpec.describe UsersController, type: :controller do
       expect(:user).to_not be_nil
     end
   end
+
   describe "POST create" do
     it "returns http success" do
       post :create, user: new_user_attributes
@@ -46,5 +47,20 @@ RSpec.describe UsersController, type: :controller do
       post :create, user: new_user_attributes
       expect(assigns(:user).password_confirmation).to eq(new_user_attributes[:password_confirmation])
     end
+  end
+
+  describe "POST confirm" do
+    it "reutrns http succes" do
+      post :confirm, user: new_user_attributes
+      expect(response).to have_http_status(:success)
+    end
+    it "creates a new user with the proper attributes" do
+      post :confirm, user: new_user_attributes
+      expect(assigns(:user).name).to eq(new_user_attributes[:name])
+      expect(assigns(:user).email).to eq(new_user_attributes[:email])
+      expect(assigns(:user).password).to eq(new_user_attributes[:password])
+      expect(assigns(:user).password_confirmation).to eq(new_user_attributes[:password_confirmation])
+    end
+    
   end
 end
