@@ -18,6 +18,7 @@ class TopicsController < ApplicationController
     @topic = Topic.new(topic_params)
 
     if @topic.save
+      @topic.labels = Label.update_labels(params[:topic][:labels])
       redirect_to @topic, notice: "Topic creaeted successfully"
     else
       flash[:error] = "There was an error creating topic. Please try again."
@@ -33,6 +34,7 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     @topic.assign_attributes(topic_params)
     if @topic.save
+      @topic.labels = Label.update_labels(params[:topic][:labels])
       redirect_to @topic, notice: "Topic updated successfully"
     else
       flash[:error] = "There was an error editing topic. Please try again."
