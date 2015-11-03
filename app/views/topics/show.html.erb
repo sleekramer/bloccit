@@ -6,7 +6,8 @@
 <div class="row">
   <div class="col-md-8">
     <p class="lead"><%= @topic.description %></p>
-    <% @topic.posts.each do |post| %>
+    <%= render @topic.posts %>
+    <!-- <% @topic.posts.each do |post| %>
       <div class="media">
         <div class="media-body">
           <h4 class"media-heading">
@@ -18,7 +19,7 @@
         </small>
         </div>
       </div>
-    <% end %>
+    <% end %> -->
   </div>
   <% if current_user %>
   <div class="col-md-4">
