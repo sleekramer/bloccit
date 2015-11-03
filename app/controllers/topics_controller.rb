@@ -16,9 +16,11 @@ class TopicsController < ApplicationController
 
   def create
     @topic = Topic.new(topic_params)
+    @topic.rating = Rating.update_rating(params[:topic][:rating])
 
     if @topic.save
       @topic.labels = Label.update_labels(params[:topic][:labels])
+
       redirect_to @topic, notice: "Topic creaeted successfully"
     else
       flash[:error] = "There was an error creating topic. Please try again."
@@ -33,8 +35,11 @@ class TopicsController < ApplicationController
   def update
     @topic = Topic.find(params[:id])
     @topic.assign_attributes(topic_params)
+    @topic.rating = Rating.update_rating(params[:topic][:rating])
+    
     if @topic.save
       @topic.labels = Label.update_labels(params[:topic][:labels])
+
       redirect_to @topic, notice: "Topic updated successfully"
     else
       flash[:error] = "There was an error editing topic. Please try again."

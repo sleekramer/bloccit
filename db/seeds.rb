@@ -1,5 +1,10 @@
 include RandomData
 
+# Create Ratings
+pg = Rating.create!(severity: 'PG')
+pg_13 = Rating.create!(severity: 'PG13')
+r = Rating.create!(severity: 'R')
+ratings = Rating.all
 # Create Users
 5.times do
   User.create!(
@@ -12,6 +17,7 @@ users = User.all
 #Create Topics
 15.times do
   Topic.create!(
+    rating: ratings.sample,
     name: RandomData.random_sentence,
     description: RandomData.random_paragraph
   )
@@ -20,6 +26,7 @@ topics = Topic.all
 # Create Posts
 50.times do
   Post.create!(
+    rating: ratings.sample,
     user: users.sample,
     topic: topics.sample,
     title: RandomData.random_sentence,
@@ -49,6 +56,7 @@ member = User.create!(
 )
 
 puts "Seed finished"
+puts "#{Rating.count} ratings created"
 puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"

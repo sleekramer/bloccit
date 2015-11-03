@@ -3,7 +3,8 @@ include RandomData
 include SessionsHelper
 
 RSpec.describe TopicsController, type: :controller do
-  let (:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)}
+  let(:rating) { Rating.create!(severity: rand(0..2))}
+  let (:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph, rating: rating)}
 
   context "guest user" do
     describe "GET index" do
@@ -42,7 +43,7 @@ RSpec.describe TopicsController, type: :controller do
 
     describe "POST create" do
       it "returns http redirect" do
-        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph}
+        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph, rating: rating}
         expect(response).to redirect_to(new_session_path)
       end
     end
@@ -59,7 +60,7 @@ RSpec.describe TopicsController, type: :controller do
         new_name = RandomData.random_sentence
         new_description = RandomData.random_paragraph
 
-        put :update, id: my_topic.id, topic: {name: new_name, description: new_description}
+        put :update, id: my_topic.id, topic: {name: new_name, description: new_description, rating: rating}
         expect(response).to redirect_to(new_session_path)
       end
     end
@@ -114,7 +115,7 @@ RSpec.describe TopicsController, type: :controller do
 
     describe "POST create" do
       it "returns http redirect" do
-        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph}
+        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph, rating: rating}
         expect(response).to redirect_to(topics_path)
       end
     end
@@ -131,7 +132,7 @@ RSpec.describe TopicsController, type: :controller do
         new_name = RandomData.random_sentence
         new_description = RandomData.random_paragraph
 
-        put :update, id: my_topic.id, topic: {name: new_name, description: new_description}
+        put :update, id: my_topic.id, topic: {name: new_name, description: new_description, rating: rating}
         expect(response).to redirect_to(topics_path)
       end
     end
@@ -194,14 +195,14 @@ RSpec.describe TopicsController, type: :controller do
 
     describe "POST create" do
       it "increase topic count by 1" do
-        expect{post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph}}.to change(Topic,:count).by(1)
+        expect{post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph, rating: rating}}.to change(Topic,:count).by(1)
       end
       it "assigns the new topic to @topic" do
-        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph}
+        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph, rating: rating}
         expect(assigns(:topic)).to eq(Topic.last)
       end
       it "redirects to the new topic" do
-        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph}
+        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph, rating: rating}
         expect(response).to redirect_to(Topic.last)
       end
     end
@@ -232,7 +233,7 @@ RSpec.describe TopicsController, type: :controller do
         new_name = RandomData.random_sentence
         new_description = RandomData.random_paragraph
 
-        put :update, id: my_topic.id, topic: {name: new_name, description: new_description}
+        put :update, id: my_topic.id, topic: {name: new_name, description: new_description, rating: rating}
 
         updated_topic = assigns(:topic)
         expect(updated_topic.id).to eq(my_topic.id)
@@ -243,7 +244,7 @@ RSpec.describe TopicsController, type: :controller do
         new_name = RandomData.random_sentence
         new_description = RandomData.random_paragraph
 
-        put :update, id: my_topic.id, topic: {name: new_name, description: new_description}
+        put :update, id: my_topic.id, topic: {name: new_name, description: new_description, rating: rating}
         expect(response).to redirect_to(my_topic)
       end
 
