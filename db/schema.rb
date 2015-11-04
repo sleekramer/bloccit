@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103114354) do
+ActiveRecord::Schema.define(version: 20151104171522) do
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "title"
@@ -66,8 +66,11 @@ ActiveRecord::Schema.define(version: 20151103114354) do
     t.boolean  "sponsored",  default: false
     t.integer  "price",      default: 0
     t.integer  "user_id"
+    t.integer  "rating_id"
+    t.float    "rank"
   end
 
+  add_index "posts", ["rating_id"], name: "index_posts_on_rating_id"
   add_index "posts", ["topic_id"], name: "index_posts_on_topic_id"
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
@@ -75,6 +78,12 @@ ActiveRecord::Schema.define(version: 20151103114354) do
     t.string   "title"
     t.text     "body"
     t.boolean  "resolved"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "severity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -96,7 +105,10 @@ ActiveRecord::Schema.define(version: 20151103114354) do
     t.text     "description"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "rating_id"
   end
+
+  add_index "topics", ["rating_id"], name: "index_topics_on_rating_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -106,5 +118,16 @@ ActiveRecord::Schema.define(version: 20151103114354) do
     t.datetime "updated_at",      null: false
     t.integer  "role"
   end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "value"
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "votes", ["post_id"], name: "index_votes_on_post_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end
