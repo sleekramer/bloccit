@@ -4,7 +4,7 @@ include RandomData
 RSpec.describe Vote, type: :model do
   let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)}
   let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld")}
-  let(:post) { Post.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user, topic: topic)}
+  let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)}
   let(:vote) { Vote.create!(value: 1, post: post, user: user)}
 
   it { should belong_to(:post)}
