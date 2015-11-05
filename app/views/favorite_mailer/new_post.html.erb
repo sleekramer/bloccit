@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content/Type">
+  </head>
+  <body>
+    <h1>Your new post, <%= @post.title %>, has been added to favorites.</h1>
+    <p>
+      You will recieve email notifications for all new comments on your post.  If you wish to disable this feature, go to your post and click the "Unfavorite" button.
+    </p>
+    <p>
+      <%= link_to "Your Post", topic_post_url(@post.topic, @post) %>
+    </p>
+  </body>
+</html>

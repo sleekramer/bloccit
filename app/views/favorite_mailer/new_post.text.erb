@@ -1,0 +1,6 @@
+Your new post, "<%= @post.title %>", has been added to favorites.
+<%= "=" * (@post.title.length + 45) %>
+
+You will recieve email notifications for all new comments on your post.  If you wish to disable this feature, go to your post and click the "Unfavorite" button.
+
+View your post: <%= topic_post_url(@post.topic, @post) %>
