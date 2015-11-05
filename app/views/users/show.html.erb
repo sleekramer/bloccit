@@ -18,9 +18,34 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-6 right-border">
+    <% if user_has_posts_or_comments?(@user) %>
+      <h2>Posts</h2>
+      <%= render @user.posts %>
 
-<h2>Posts</h2>
-<%= render @user.posts %>
-
-<h2>Comments</h2>
-<%= render @user.comments %>
+      <h2>Comments</h2>
+      <%= render @user.comments %>
+    <% else %>
+      <h2><%= "#{@user.name}" %> has not submitted any posts or comments yet.</h2>
+    <% end %>
+  </div>
+  <div class="col-md-6 pad-left">
+    <% if user_has_favorites?(@user) %>
+      <h2><%= "#{@user.name}'s" %> Favorite Posts</h2>
+      <% @user.favorites.each do|fav| %>
+        <% fav_post_user_avatar = User.avatar_url(fav.post.user, 50) %>
+        <% unless fav_post_user_avatar.nil? %>
+          <div class="media-left">
+            <%= image_tag fav_post_user_avatar, class: 'media-object' %>
+          </div>
+        <% end %>
+        <div class="media-right">
+          <%= render fav.post %>
+        </div>
+      <% end %>
+    <% else %>
+      <h2><%= "#{@user.name}" %> has no favorited posts...</h2>
+    <% end %>
+  </div>
+</div>
