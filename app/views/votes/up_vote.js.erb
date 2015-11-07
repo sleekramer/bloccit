@@ -1,0 +1,6 @@
+$('.js-votes').html("<%= escape_javascript(render partial: 'votes/voter', locals: {post: @post}) %>");
+$('#post-' +<%= @post.id %>).html("<%= escape_javascript(render partial: 'votes/voter', locals: {post: @post})  %>");
+$('.js-points').html("<%= pluralize(@post.points, 'point') %>");
+$('.votes').html("<%= pluralize(@post.up_votes, 'up vote') %> <%= pluralize(@post.down_votes, 'down vote') %>");
+$('a.glyphicon.glyphicon-chevron-up').addClass('disabled');
+$('a.glyphicon.glyphicon-chevron-down.disabled').removeClass('disabled');
